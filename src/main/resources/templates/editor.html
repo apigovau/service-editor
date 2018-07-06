@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en-us" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Service Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.css"/>
+  <link rel="stylesheet" href="../css/stylesheet.css"/>
+  <link rel="stylesheet" href="../css/common.css"/>
+  <link rel="stylesheet" href="../css/custom.css"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/atom-one-light.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
+  <script src="../js/editor.js"></script>
+
+</head>
+<body>
+
+  <div id="page-selection" class="uikit-body">
+    <ul id="pages"></ul>
+  </div>
+
+  <div id="editor">
+    <div id="authoring">
+      <a href="#" onclick="newPage()">new page</a> | <a href="#" th:attr="onclick='save(&quot;' + ${BasicAuth} + '&quot;)'">save</a>
+    </div>
+
+    <textarea id="demo1"></textarea>
+
+  </div>
+
+</body>
+</html>
