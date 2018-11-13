@@ -38,7 +38,7 @@ $( document ).ready(function() {
     )
 
 
-    $.getJSON( "https://service-catalogue-repository.herokuapp.com/service/" + id, function( data ) {
+    $.getJSON( "https://api.gov.au/repository/service/" + id, function( data ) {
       $.each( data.pages, function( pageNum ) {
         addPage("Title", data.pages[pageNum])
       });
@@ -154,7 +154,7 @@ function save(auth){
    $.ajax
     ({
       type: "post",
-      url: "https://service-catalogue-repository.herokuapp.com/service/" + id,
+      url: "https://api.gov.au/repository/service/" + id,
       dataType: 'json',
       async: false,
       headers: {
