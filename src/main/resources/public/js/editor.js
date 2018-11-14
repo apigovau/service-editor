@@ -136,7 +136,9 @@ function newPage(){
 }
 
 
-function save(auth){
+function save(){
+
+    var auth = btoa($( "#apikey_input" ).val())
 
     var save = {name:name, description:desc, pages:[]}
 
