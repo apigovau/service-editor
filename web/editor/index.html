@@ -23,13 +23,13 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.css"/>
 
-		<link rel="stylesheet" href="../css/stylesheet.css"/>
+		<link rel="stylesheet" href="css/stylesheet.css"/>
 		<script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/atom-one-light.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
-		<script src="../js/editor.js"></script>
+		<script src="js/editor.js"></script>
 
 </head>
 <body class="au-body au-grid">
@@ -93,7 +93,7 @@
 
 		<div id="editor_view" style="display:none">
 		<div id="authoring">
-			   <a href="#x" onclick="newPage()">new page</a> | <a href="#x" th:attr="onclick='save(&quot;' + ${BasicAuth} + '&quot;)'">save</a>
+			   <a href="#x" onclick="newPage()">new page</a> | <a href="#x" onclick="save()">save</a>
 		</div>
 		  <div id="page-selection" class="au-body">
 			<ul id="pages"></ul>
