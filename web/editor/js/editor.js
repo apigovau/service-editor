@@ -187,17 +187,25 @@ function selectFirstPage(){
 
 
 function showAPIs(){
+    var auth = btoa($( "#apikey_input" ).val())
 	$('#api_list').show()
 	$('#editor_view').hide()
 	var view = $('#api_list')
     view.empty()
     view.append("<hr/>")
 	view.append("<ul>")
-    $.getJSON( "https://api.gov.au/repository/index", function( data ) {
+    //$.getJSON( "https://api.gov.au/repository/index", function( data ) {
+    $.ajax("https://api.gov.au/repository/indexWritable", {crossDomain:true, 
+      headers: {
+        "Authorization": "Basic " + auth,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      success: function(data) {
       $.each( data.content, function( i ) {
         view.append(`<li><a href="#" onclick="edit('${data.content[i].id}')">${data.content[i].name}</a></li>`)
       });
-	});
+	}});
 	view.append("</ul>")
 
 	window.scrollTo(0,document.body.scrollHeight);
