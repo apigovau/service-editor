@@ -1,81 +1,25 @@
 #editor {
   display: inline-block;
-  width: calc(100% - 270px);
+  width: calc(100% - 210px);
   height: 50px;
 }
 #authoring {
   width: 100%;
-  height: 50px;
-  position: absolute;
+  height: 51px;
   left: 0px;
+  margin-top: 50px;
 }
-#authoring {
-  /*padding: 10px;*/
-  position: relative;
-  top: 15px;
-  left: -195px;
-  font-size: larger;
-}
-#editor .CodeMirror {
-  height: calc(100vh - 50px - 25px);
-}
-/*#editor .editor-toolbar
-{
-	height: 50px;
-}*/
 #page-selection {
   width: 200px;
   display: inline-block;
-  height: 100vh;
+  height: calc( 100vh - 50px );
   vertical-align: top;
 }
-/*#editor-preview
-{
-	display: inline-block;
-	width: calc(100vw - 150px - 10px);
-}*/
-/*#preview
-{
-	(*display: inline-block;*)
-	(*width: 64%;*)
-	(*vertical-align: top;*)
-}*/
+.CodeMirror {
+  height: calc( 100vh  - 155px);
+}
 BODY {
   margin: 0px;
-}
-.CodeMirror-fullscreen {
-  /*background: #2F2F41 !important;*/
-  position: fixed !important;
-  top: 100px;
-  left: 200px;
-  width: calc(100% - 200px - 51% - 10px) !important;
-  right: 0;
-  bottom: 0;
-  height: auto;
-  z-index: 9;
-  border-left: 0;
-  border-right: 0;
-  font-family: 'open sans';
-  font-size: smaller;
-}
-.editor-toolbar.fullscreen {
-  width: 100%;
-  height: 50px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-  background: #FFF;
-  border: 0;
-  position: fixed;
-  top: 50px;
-  left: 200px;
-  opacity: 1;
-  z-index: 9;
-  border-top: 1px solid #DDD;
-  border-left: 1px solid #DDD;
 }
 .editor-preview-side {
   background: white;
@@ -95,8 +39,12 @@ BODY {
   display: inline-block;
 }
 #page-selection LI.current-page {
-  background: #25655A;
+  background: #313131;
   color: white;
+}
+#page-selection LI.current-page H3 {
+  text-decoration: underline;
+  text-decoration-color: #1B7991;
 }
 #page-selection UL {
   padding: 0px !important;
@@ -121,9 +69,9 @@ BODY {
 }
 #pages {
   position: relative;
-  top: 50px;
+  /*top: 50px;*/
   height: calc(100vh - 50px);
-  border-right: 1px solid #DDD;
+  /*border-right: 1px solid #DDD;*/
 }
 #pages H3 {
   margin: 0px;
@@ -145,4 +93,16 @@ BODY {
 }
 .js-remove {
   display: none;
+}
+HEADER {
+  margin-bottom: 50px !important;
+}
+.au-text-input {
+  width: calc( 100vw - 270px);
+  max-width: 70%;
+  margin-right: 5px;
+  float: right;
+}
+#showAPIs {
+  margin-left: 20px;
 }

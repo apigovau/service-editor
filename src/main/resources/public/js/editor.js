@@ -6,7 +6,7 @@ var sortedList
 var name
 var desc
 
-var id = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1 )
+var idToSave = ""// window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1 )
 
 
 $( document ).ready(function() {
@@ -21,10 +21,13 @@ $( document ).ready(function() {
         codeSyntaxHighlighting: true,
       }
     });
-    simplemde.toggleSideBySide()
-    simplemde.toggleSideBySide()
+    //simplemde.toggleSideBySide()
+    //simplemde.toggleSideBySide()
 
-    setTimeout(function() { document.getElementsByClassName("editor-preview-side editor-preview-active-side")[0].classList.add("uikit-body"); }, 100);
+
+	// need to set au-body class on preview
+    // hook the button somehow
+    //setTimeout(function() { document.getElementsByClassName("editor-preview-side editor-preview-active-side")[0].classList.add("au-body"); }, 100);
 
     list = document.getElementById("pages")
     sortedList = Sortable.create(list, {
@@ -33,11 +36,11 @@ $( document ).ready(function() {
             onFilter: function (evt) {
                 evt.item.parentNode.removeChild(evt.item);
           selectFirstPage()
-            }
+        }
       }
     )
 
-
+/*
     $.getJSON( "https://api.gov.au/repository/service/" + id, function( data ) {
       $.each( data.pages, function( pageNum ) {
         addPage("Title", data.pages[pageNum])
@@ -48,7 +51,7 @@ $( document ).ready(function() {
 
       selectFirstPage()
     });
-
+*/
 
 
     simplemde.codemirror.on("change", function() {
@@ -57,6 +60,8 @@ $( document ).ready(function() {
       currentPage.html(getPageNav(content))
     });
 
+
+/*
     setTimeout(function() {
         // disable's pressing esc to exit full screen
         simplemde.__proto__.toggleFullScreen = function(){}
@@ -66,7 +71,7 @@ $( document ).ready(function() {
         simplemde.toolbarElements.fullscreen.style.display = "none"
         simplemde.toolbarElements["side-by-side"].style.display = "none"
     }, 100);
-
+*/
 });
 
 
@@ -150,13 +155,13 @@ function save(){
 
    })
 
-   //console.log(JSON.stringify(save))
 
+   console.log(JSON.stringify(save))
 
    $.ajax
     ({
       type: "post",
-      url: "https://api.gov.au/repository/service/" + id,
+      url: "https://api.gov.au/repository/service/" + idToSave,
       dataType: 'json',
       async: false,
       headers: {
@@ -179,3 +184,45 @@ function selectFirstPage(){
   $($("#pages li")[0]).click()
 }
 
+
+
+function showAPIs(){
+	$('#api_list').show()
+	$('#editor_view').hide()
+	var view = $('#api_list')
+    view.empty()
+    view.append("<hr/>")
+	view.append("<ul>")
+    $.getJSON( "https://api.gov.au/repository/index", function( data ) {
+      $.each( data.content, function( i ) {
+        view.append(`<li><a href="#" onclick="edit('${data.content[i].id}')">${data.content[i].name}</a></li>`)
+      });
+	});
+	view.append("</ul>")
+
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function load(id){
+
+  	$("#pages").empty();
+    $.getJSON( "https://api.gov.au/repository/service/" + id, function( data ) {
+      $.each( data.pages, function( pageNum ) {
+        addPage("Title", data.pages[pageNum])
+      });
+
+      name = data.name
+      desc = data.description
+
+      selectFirstPage()
+    });
+
+}
+
+function edit(id){
+	$('#api_list').hide()
+	load(id)
+	$('#editor_view').show()
+	console.log("editing:" + id);
+	idToSave = id
+}

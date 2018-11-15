@@ -1,43 +1,108 @@
 
 <!DOCTYPE html>
-<html lang="en-us" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8"/>
-  <title>Service Editor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.css"/>
-  <link rel="stylesheet" href="../css/stylesheet.css"/>
-  <link rel="stylesheet" href="../css/common.css"/>
-  <link rel="stylesheet" href="../css/custom.css"/>
-  <link rel="stylesheet" href="../css/main.css"/>
-  <script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/atom-one-light.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
-  <script src="../js/editor.js"></script>
+<html>
+<head>
+  
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    
+		<title>API Editor</title>
+  
+  		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
+        <link rel="icon" type="image/png" href="https://api.gov.au/img/favicon-196x196.png" sizes="196x196" />
+        <link rel="icon" type="image/png" href="https://api.gov.au/img/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="https://api.gov.au/img/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="https://api.gov.au/img/favicon-128.png" sizes="128x128" />
+    
+  
+        <link rel="stylesheet" href="https://api.gov.au/css/furnace.min.css" />
+        <link rel="stylesheet" href="https://api.gov.au/css/custom.css" />
+        <link rel="stylesheet" href="https://api.gov.au/css/common.css" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.css"/>
+
+		<link rel="stylesheet" href="../css/stylesheet.css"/>
+		<script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<link rel="stylesheet" href="https://highlightjs.org/static/demo/styles/atom-one-light.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
+		<script src="../js/editor.js"></script>
 
 </head>
-<body>
+<body class="au-body au-grid">
 
-  <div id="page-selection" class="uikit-body">
-    <ul id="pages"></ul>
-  </div>
 
-  <div id="editor">
-    <div id="authoring">
-      <a href="#" onclick="newPage()">new page</a> | <a href="#" th:attr="onclick='save(&quot;' + ${BasicAuth} + '&quot;)'">save</a>
+    <section class="phase-banner">
+        <div class="wrapper au-grid container container-fluid">
+            This is an <a href="https://www.dta.gov.au/standard/service-design-and-delivery-process/" class="dss_stage_link">alpha</a>. If you find something wrong, <a href="https://github.com/govau/api-gov-au-definitions/issues/new" class="dss_stage_link">let us know</a>
+        </div>
+    </section>
+    <header class="au-grid au-header au-header--hero au-header--dark hero_header" role="banner">
+            <div class="container">
+               
+                        <img class="hero_logo au-responsive-media-img" alt="Australian Government logo" src="https://api.gov.au/img/header-logo-agov.png" />
+                        <h1 class="au-header-heading">
+                            API Editor 
+                            <span class="badge">ALPHA</span>
+                            <div class="au-header__subline">
+                                    <p>Making Government APIs simpler and clearer to understand.</p>
+                            </div>
+                        </h1>
+                
+                
+            </div>
 
-      <input size="80" id="apikey_input" type="text" value="Your api key"/>
+            <nav class="au-main-nav" aria-label="main navigation">
+                <input type="checkbox" id="menu">
+                    <label for="menu">☰ Menu</label>
+                </input>
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div id="main-nav-default" class="au-main-nav__content">
+                           <div class="au-main-nav__menu">
+                              <div class="au-main-nav__menu-inner">
+                                 <div class="au-main-nav__focus-trap-top"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </nav>
+        </header>
 
-    </div>
+<main class="container">
 
-    <textarea id="demo1"></textarea>
+		<h1>How this works</h1>
+		<p>The editor lets you add, remove, reorder and modify the pages that describe your API. The syntax is called MarkDown, and there is plenty of information online about how to write it.</p>
+		<p>You will need to be registered and have your API key available before we'll let you save any changes.</p>
 
-  </div>
+<hr/>
 
+		<input  type="text" class="au-text-input" id="apikey_input" placeholder="Your API key"/>
+		<button id="showAPIs" class="au-btn" onclick="showAPIs()">Show my APIs</button> 
+
+
+		<div id="api_list">
+		</div>
+
+
+		<div id="editor_view" style="display:none">
+		<div id="authoring">
+			   <a href="#x" onclick="newPage()">new page</a> | <a href="#x" th:attr="onclick='save(&quot;' + ${BasicAuth} + '&quot;)'">save</a>
+		</div>
+		  <div id="page-selection" class="au-body">
+			<ul id="pages"></ul>
+		  </div>
+
+		  <div id="editor">
+			<textarea id="demo1"></textarea>
+		  </div>
+		</div>
+	</main>
 </body>
 </html>
