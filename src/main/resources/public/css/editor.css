@@ -107,3 +107,13 @@ HEADER {
   margin-left: 20px;
 }
 
+.inlineedit p{
+    display:inline-block;
+}
+.inlineedit input{
+    display:inline-block;
+}
+.inlineedit textarea{
+    vertical-align:top;
+}
+

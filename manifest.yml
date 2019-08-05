@@ -4,6 +4,6 @@ applications:
   memory: 64M
   disk_quota: 256M
   buildpack: staticfile_buildpack
-  path: web
+  path: src/main/resources/public 
   routes:
   - route: api.gov.au/editor

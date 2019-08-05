@@ -145,7 +145,16 @@ function save(){
 
     var auth = btoa($( "#apikey_input" ).val())
 
-    var save = {name:name, description:desc, pages:[]}
+    var save = {
+        id:idToSave,
+        name:$("#name").val(),
+        description:$("#description").val(),
+        tags:$("#tags").val().split(","),
+        logo:$("#logo").val(),
+        agency:$("#agency").val(),
+        visibility:true,
+        pages:[]
+    }
 
     var lis = $("#pages > li ")
     lis.each(function(item){
@@ -161,8 +170,8 @@ function save(){
    $.ajax
     ({
       type: "post",
-      url: "https://api.gov.au/repository/service/" + idToSave,
-      dataType: 'json',
+      url: "/repository/service/",
+      dataType: 'text',
       async: false,
       headers: {
         "Authorization": "Basic " + auth,
@@ -170,11 +179,15 @@ function save(){
         'Content-Type': 'application/json'
       },
       data: JSON.stringify(save),
-      success: function (){
+      success: function (newId){
+          console.log(newId);
+          idToSave=newId;
         alert('Thanks for your comment!');
       },
-      error: function(){
-        alert("something went wrong")
+            error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+            alert("something went wrong");
       }
     });
 
@@ -195,13 +208,15 @@ function showAPIs(){
     view.append("<hr/>")
 	view.append("<ul>")
     //$.getJSON( "https://api.gov.au/repository/index", function( data ) {
-    $.ajax("https://api.gov.au/repository/indexWritable", {crossDomain:true, 
+    $.ajax("/repository/indexWritable", {crossDomain:true, 
       headers: {
         "Authorization": "Basic " + auth,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       success: function(data) {
+      console.log(data);
+          view.append(`<button id="showAPIs" class="au-btn" onclick="createNew()">Create a new APIs</button>`); 
       $.each( data.content, function( i ) {
         view.append(`<li><a href="#" onclick="edit('${data.content[i].id}')">${data.content[i].name}</a></li>`)
       });
@@ -213,8 +228,14 @@ function showAPIs(){
 
 function load(id){
 
-  	$("#pages").empty();
-    $.getJSON( "https://api.gov.au/repository/service/" + id, function( data ) {
+  
+        $("#pages").empty();
+    $.getJSON( "/repository/service/" + id, function( data ) {
+        $("#name").val(data.name)
+        $("#description").val(data.description),
+        $("#tags").val(data.tags.join()),
+        $("#logo").val(data.logo),
+        $("#agency").val(data.agency),
       $.each( data.pages, function( pageNum ) {
         addPage("Title", data.pages[pageNum])
       });
@@ -225,6 +246,11 @@ function load(id){
       selectFirstPage()
     });
 
+}
+
+
+function createNew(){
+	$('#editor_view').show()
 }
 
 function edit(id){
