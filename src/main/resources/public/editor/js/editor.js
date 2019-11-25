@@ -228,14 +228,24 @@ function showAPIs(){
 
 function load(id){
 
+
+    $("#pages").empty();
+    $.getJSON( "/repository/index/", function( data ) {
+        for(let i=0;i<data.content.length;i++){
+            var c = data.content[i]
+            if(c.id == id){
+                $("#tags").val(c.tags.join())
+                $("#logo").val(c.logoURI)
+                $("#agency").val(c.metadata.agency)
+            }
+        }
+    });
+    
+
   
-        $("#pages").empty();
     $.getJSON( "/repository/service/" + id, function( data ) {
         $("#name").val(data.name)
-        $("#description").val(data.description),
-        $("#tags").val(data.tags.join()),
-        $("#logo").val(data.logo),
-        $("#agency").val(data.agency),
+        $("#description").val(data.description)
       $.each( data.pages, function( pageNum ) {
         addPage("Title", data.pages[pageNum])
       });
